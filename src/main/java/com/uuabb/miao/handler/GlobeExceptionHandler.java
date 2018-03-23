@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * Created by brander on 2018/3/1
+ * 异常收集
  */
 @ControllerAdvice
 public class GlobeExceptionHandler {

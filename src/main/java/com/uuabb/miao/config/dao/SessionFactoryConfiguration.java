@@ -15,6 +15,7 @@ import java.io.IOException;
 
 /**
  * Created by brander on 2018/3/1
+ * 配置mapper
  */
 @Configuration
 public class SessionFactoryConfiguration {

@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 /**
  * Created by brander on 2018/3/1
+ * 配置事务
  */
 @Configuration
 @EnableTransactionManagement

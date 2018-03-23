@@ -10,6 +10,7 @@ import java.beans.PropertyVetoException;
 
 /**
  * Created by brander on 2018/3/1
+ * 配置数据库基本数据
  */
 @Configuration
 @MapperScan("com.uuabb.miao.dao")
