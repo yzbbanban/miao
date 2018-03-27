@@ -1,5 +1,6 @@
 package com.uuabb.miao.config.dao;
 
+import com.uuabb.miao.utils.RedisCache;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -18,6 +18,12 @@ public class AreaController {
     @Autowired
     private IAreaService iAreaService;
 
+
+    @RequestMapping("/testRedis")
+    public String testRedis(){
+        return "hello world";
+    }
+
     @RequestMapping(value = "getAreaList", method = RequestMethod.GET)
     public Map<String, Object> getAreaList() {
         List<Area> areas = iAreaService.getAreaList();
@@ -27,8 +33,7 @@ public class AreaController {
     }
 
     @RequestMapping(value = "getAreaById", method = RequestMethod.GET)
-    public Map<String, Object> getAreaById(int areaId) {
-        int a=1/0;
+    public Map<String, Object> getAreaById(Integer areaId) {
         Area area = iAreaService.getAreaById(areaId);
         Map<String, Object> map = new HashMap<>();
         map.put("area", area);
@@ -50,7 +55,7 @@ public class AreaController {
     }
 
     @RequestMapping(value = "deleteAreaById", method = RequestMethod.POST)
-    public Map<String, Object> deleteAreaById(int areaId) {
+    public Map<String, Object> deleteAreaById(Integer areaId) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", iAreaService.deleteAreaById(areaId));
         return map;
