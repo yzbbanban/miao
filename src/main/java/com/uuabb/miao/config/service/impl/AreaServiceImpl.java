@@ -4,6 +4,7 @@ import com.uuabb.miao.config.service.IAreaService;
 import com.uuabb.miao.dao.AreaDao;
 import com.uuabb.miao.entity.Area;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -19,11 +20,13 @@ public class AreaServiceImpl implements IAreaService {
     private AreaDao areaDao;
 
     @Override
+    @CacheEvict(value="area",key="getAreaList()",allEntries=true)
     public List<Area> getAreaList() {
         return areaDao.queryArea();
     }
 
     @Override
+    @CacheEvict(value="area",key="getAreaById()",allEntries=true)
     public Area getAreaById(int areaId) {
         return areaDao.queryAreaById(areaId);
     }

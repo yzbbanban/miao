@@ -28,7 +28,7 @@ public class AreaController {
 
     @RequestMapping(value = "getAreaById", method = RequestMethod.GET)
     public Map<String, Object> getAreaById(int areaId) {
-        //int a=1/0;
+        int a=1/0;
         Area area = iAreaService.getAreaById(areaId);
         Map<String, Object> map = new HashMap<>();
         map.put("area", area);

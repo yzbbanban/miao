@@ -1,11 +1,12 @@
 package com.uuabb.miao.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by brander on 2018/2/28
  */
-public class Area {
+public class Area implements Serializable{
     //主键 ID
     private Integer areaId;
     //名称
