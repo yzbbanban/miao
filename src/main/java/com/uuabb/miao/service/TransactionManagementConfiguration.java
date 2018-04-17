@@ -1,4 +1,4 @@
-package com.uuabb.miao.config.service;
+package com.uuabb.miao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

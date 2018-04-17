@@ -1,9 +1,8 @@
 package com.uuabb.miao.dao;
 
-import com.uuabb.miao.config.service.IAreaService;
-import com.uuabb.miao.config.service.impl.AreaServiceImpl;
+import com.uuabb.miao.service.IAreaService;
+import com.uuabb.miao.service.impl.AreaServiceImpl;
 import com.uuabb.miao.entity.Area;
-import com.uuabb.miao.utils.RedisCache;
 import com.uuabb.miao.utils.RedisUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

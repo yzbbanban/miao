@@ -1,4 +1,4 @@
-package com.uuabb.miao.config.service;
+package com.uuabb.miao.service;
 
 import com.uuabb.miao.entity.Area;
 

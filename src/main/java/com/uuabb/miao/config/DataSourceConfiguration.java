@@ -1,4 +1,4 @@
-package com.uuabb.miao.config.dao;
+package com.uuabb.miao.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.mybatis.spring.annotation.MapperScan;

@@ -1,6 +1,6 @@
-package com.uuabb.miao.config.service.impl;
+package com.uuabb.miao.service.impl;
 
-import com.uuabb.miao.config.service.IAreaService;
+import com.uuabb.miao.service.IAreaService;
 import com.uuabb.miao.dao.AreaDao;
 import com.uuabb.miao.entity.Area;
 import org.springframework.beans.factory.annotation.Autowired;

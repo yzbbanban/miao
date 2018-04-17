@@ -1,4 +1,4 @@
-package com.uuabb.miao.config.dao;
+package com.uuabb.miao.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

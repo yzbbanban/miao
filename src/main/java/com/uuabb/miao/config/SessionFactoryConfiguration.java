@@ -1,4 +1,4 @@
-package com.uuabb.miao.config.dao;
+package com.uuabb.miao.config;
 
 import com.uuabb.miao.utils.RedisCache;
 import org.mybatis.spring.SqlSessionFactoryBean;
