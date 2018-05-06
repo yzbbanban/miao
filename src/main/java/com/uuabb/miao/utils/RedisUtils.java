@@ -52,6 +52,28 @@ public class RedisUtils {
         }
         return result;
     }
+
+    /**
+     * 增加
+     * @param key
+     * @param value
+     * @return
+     */
+    public Long incr(String key,long value) {
+        return redisTemplate.opsForValue().increment(key,value);
+    }
+
+
+    /**
+     * 增加浮点数
+     * @param key
+     * @param value
+     * @return
+     */
+    public Double incr(String key,double value) {
+        return redisTemplate.opsForValue().increment(key,value);
+    }
+
     /**
      * 批量删除对应的value
      * @param keys
@@ -106,7 +128,7 @@ public class RedisUtils {
      * @param hashKey
      * @param value
      */
-    public void hmSet(String key, Object hashKey, Object value){
+    public void hmSet(final String key, Object hashKey, Object value){
         HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
         hash.put(key,hashKey,value);
     }
@@ -117,7 +139,7 @@ public class RedisUtils {
      * @param hashKey
      * @return
      */
-    public Object hmGet(String key, Object hashKey){
+    public Object hmGet(final String key, Object hashKey){
         HashOperations<String, Object, Object>  hash = redisTemplate.opsForHash();
         return hash.get(key,hashKey);
     }
@@ -127,9 +149,19 @@ public class RedisUtils {
      * @param k
      * @param v
      */
-    public void lPush(String k,Object v){
+    public void lPush(final String k,Object v){
         ListOperations<String, Object> list = redisTemplate.opsForList();
         list.rightPush(k,v);
+    }
+
+    /**
+     * 移除
+     * @param key
+     * @param item
+     * @return
+     */
+    public Long hmRemove(final String key, Object... item){
+        return redisTemplate.opsForHash().delete(key,item);
     }
 
     /**
@@ -139,7 +171,7 @@ public class RedisUtils {
      * @param l1
      * @return
      */
-    public List<Object> lRange(String k, long l, long l1){
+    public List<Object> lRange(final String k, long l, long l1){
         ListOperations<String, Object> list = redisTemplate.opsForList();
         return list.range(k,l,l1);
     }
@@ -149,7 +181,7 @@ public class RedisUtils {
      * @param key
      * @param value
      */
-    public void add(String key,Object value){
+    public void add(final String key,Object value){
         SetOperations<String, Object> set = redisTemplate.opsForSet();
         set.add(key,value);
     }
@@ -159,7 +191,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public Set<Object> setMembers(String key){
+    public Set<Object> setMembers(final String key){
         SetOperations<String, Object> set = redisTemplate.opsForSet();
         return set.members(key);
     }
@@ -170,20 +202,87 @@ public class RedisUtils {
      * @param value
      * @param scoure
      */
-    public void zAdd(String key,Object value,double scoure){
+    public void zAdd(final String key,Object value,double scoure){
         ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
         zset.add(key,value,scoure);
     }
 
     /**
-     * 有序集合获取
+     * 获取下标集合（正序）
      * @param key
-     * @param scoure
-     * @param scoure1
+     * @param from
+     * @param to
      * @return
      */
-    public Set<Object> rangeByScore(String key, double scoure, double scoure1){
-        ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
-        return zset.rangeByScore(key, scoure, scoure1);
+    public Set<Object> zRange(final String key,long from ,long to){
+        return  redisTemplate.opsForZSet().range(key,from,to);
     }
+
+    /**
+     * 有序集合获取,根据 score 区间获取
+     * @param key
+     * @param score
+     * @param score1
+     * @return
+     */
+    public Set<Object> rangeByScore(final String key, double score, double score1){
+        ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
+        return zset.rangeByScore(key, score, score1);
+    }
+
+    /**
+     * 计算有序集合的数量
+     * @param key
+     * @return
+     */
+    public Long zCard(final String key){
+        return redisTemplate.opsForZSet().zCard(key);
+    }
+
+    /**
+     * 删除有序集合区间数据
+     * @param key
+     * @param from
+     * @param to
+     */
+    public Long zRemRangeByRank(final String key, long from, long to){
+        return redisTemplate.opsForZSet().removeRange(key,from,to);
+    }
+
+    public Double zScore(final String key,Object obj){
+        return  redisTemplate.opsForZSet().score(key,obj);
+    }
+
+    /**
+     * 删除多个有序集合
+     * @param key
+     * @param var2
+     * @return
+     */
+    public Long zRemove(final String key,Object... var2){
+        return redisTemplate.opsForZSet().remove(key,var2);
+    }
+
+    /**
+     * 根据下标获取所有有序集合（倒序大到小）
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public Set<Object> zRevRange(final String key,long start,long end){
+        return redisTemplate.opsForZSet().reverseRange(key,start,end);
+    }
+
+    /**
+     * 分值自增
+     * @param key
+     * @param obj 自增列
+     * @param index 增加数
+     */
+    public void zIncrBy(final String key, Object obj,double index){
+        redisTemplate.opsForZSet().incrementScore(key,obj,index);
+    }
+
+
 }

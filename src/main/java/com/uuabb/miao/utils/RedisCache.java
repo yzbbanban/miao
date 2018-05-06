@@ -1,7 +1,6 @@
 package com.uuabb.miao.utils;
 
 import org.apache.ibatis.cache.Cache;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;

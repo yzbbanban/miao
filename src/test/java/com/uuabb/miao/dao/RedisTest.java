@@ -10,8 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,12 +22,15 @@ import java.util.concurrent.TimeUnit;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RddisTest {
+public class RedisTest {
     private static final String key = "springboot1219";//这里的key值可以自己修改
     public static final Logger logger = LoggerFactory.getLogger(AreaServiceImpl.class);
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private IAreaService areaService;//小伙伴请根据自己的service类做修改
@@ -60,6 +66,12 @@ public class RddisTest {
         String s= (String) redisUtils.get("getAreaList()");
         System.out.println(s);
     }
+    @Test
+    public void testPattern(){
+        stringRedisTemplate.keys("*"+"ss"+"*");
+        String s= (String) redisUtils.get("getAreaList()");
+        System.out.println(s);
+    }
 
     /**
      * @Date:10:11 2017/12/20
@@ -77,6 +89,43 @@ public class RddisTest {
         }else {
             logger.info("缓存中没有数据！");
         }
+    }
+
+    private static final String POSTS_DATA = "posts:%s";
+    private static final String POSTS_ID = "posts:id";
+
+    @Test
+    public void testHash(){
+        Long id=0L;
+        String.format(POSTS_DATA,"");
+        String token= UUID.randomUUID().toString();
+        long timestamp=System.currentTimeMillis()/1000;
+        String key="user:";
+//        addHash("user:",token,timestamp);
+//        removeLimit(key);
+        Set<Object> set=redisUtils. zRevRange(key,1,-1);
+        System.out.println("===set===> "+set);
+    }
+
+    private void addHash(String key,String token,long timestamp){
+
+        redisUtils.zAdd(key,token,timestamp);
+    }
+
+    private void removeLimit(String key){
+        long limit=redisUtils.zRemRangeByRank(key,0,1);
+        System.out.println("=======> "+limit);
+    }
+
+
+    @Test
+    public void testString(){
+        String key="ban";
+        redisUtils.set(key,2);
+
+        Object s = redisUtils.get(key);
+        System.out.println("-----key----->"+s);
+        redisUtils.incr(key,3L);
     }
 
 }
