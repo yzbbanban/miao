@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RddisTest {
+public class RedisTest {
     private static final String key = "springboot1219";//这里的key值可以自己修改
     public static final Logger logger = LoggerFactory.getLogger(AreaServiceImpl.class);
 
