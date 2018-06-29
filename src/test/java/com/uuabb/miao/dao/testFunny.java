@@ -108,7 +108,7 @@ public class testFunny {
      */
     public static void main(final String[] args) {
         try {
-            testFunny.createAsciiPic("F:\\其他人员\\圆圈\\TIM图片20180627141432.jpg");
+            testFunny.createAsciiPic("F:\\其他人员\\圆圈\\-322d0f78d18946df.jpg");
         } catch (Exception e) {
             e.printStackTrace();
         }
