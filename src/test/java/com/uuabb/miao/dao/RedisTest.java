@@ -209,4 +209,10 @@ public class RedisTest {
     }
 
 
+    @Test
+    public void testInter(){
+        redisUtils.in();
+    }
+
+
 }
