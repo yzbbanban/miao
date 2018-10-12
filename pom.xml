@@ -60,7 +60,6 @@
 			<artifactId>guava</artifactId>
 			<version>26.0-jre</version>
 			<!-- or, for Android: -->
-			<version>26.0-android</version>
 		</dependency>
 
 		<dependency>

@@ -1,14 +1,12 @@
 package com.uuabb.miao.utils;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -338,10 +336,14 @@ public class RedisUtils {
     }
 
     public void in() {
-        Set<String> sets1=new HashSet<>();
 
-        redisTemplate.opsForSet().intersectAndStore("setValue", "destSetValue", "intersectValue");
-        Set set = redisTemplate.opsForSet().members("intersectValue");
+        redisTemplate.opsForSet().add("a1","1","2","3","4","5");
+        redisTemplate.opsForSet().add("a2","4","2","5");
+
+        redisTemplate.opsForSet().intersectAndStore("a1", "a2", "a3");
+        Set set = redisTemplate.opsForSet().members("a3");
+        Boolean isMember = redisTemplate.opsForSet().isMember("a3", "4");
+        System.out.println(isMember);
         System.out.println("通过intersectAndStore(K key, K otherKey, K destKey)方法将求出来的交集元素保存:" + set);
     }
 
