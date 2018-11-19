@@ -94,4 +94,10 @@ public class RedisTest {
         }
     }
 
+    @Test
+    public void testRedisInteger() {
+        Integer banbanban=11111;
+        redisUtils.set("banbanban",banbanban);
+    }
+
 }
