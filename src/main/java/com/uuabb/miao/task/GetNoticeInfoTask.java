@@ -12,8 +12,8 @@ import java.net.SocketTimeoutException;
  * Created by ban on 2018/5/3.
  * 缓存公告信息
  */
-@Component
-@EnableScheduling
+//@Component
+//@EnableScheduling
 public class GetNoticeInfoTask {
     //DI
     private final static Logger logger = Logger.getLogger(GetNoticeInfoTask.class);
@@ -22,7 +22,7 @@ public class GetNoticeInfoTask {
     /**
      * 缓存公告数据
      */
-    @Scheduled(cron = "0/5 * * * * ?")
+//    @Scheduled(cron = "0/5 * * * * ?")
     public void test() throws SocketTimeoutException, InterruptedException {
         logger.info("============test===============");
         Thread.sleep(10000);
@@ -36,7 +36,7 @@ public class GetNoticeInfoTask {
     /**
      * 缓存公告数据
      */
-    @Scheduled(cron = "0/5 * * * * ?")
+//    @Scheduled(cron = "0/5 * * * * ?")
     public void test2() throws SocketTimeoutException, InterruptedException {
         logger.info("============test2===============");
         Thread.sleep(10000);

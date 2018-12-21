@@ -7,7 +7,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -23,28 +27,28 @@ public class AreaDaoTest {
 
     @Test
     public void queryArea() throws Exception {
-        List<Area> areas=areaDao.queryArea();
+        List<Area> areas = areaDao.queryArea();
         System.out.println(areas);
     }
 
     @Test
     public void queryAreaById() throws Exception {
-        Area area=areaDao.queryAreaById(1);
+        Area area = areaDao.queryAreaById(1);
         System.out.println(area);
     }
 
     @Test
     public void insertArea() throws Exception {
-        Area area=new Area();
+        Area area = new Area();
         area.setAreaName("南京");
         area.setPriority(3);
-        int id=areaDao.insertArea(area);
+        int id = areaDao.insertArea(area);
         System.out.println(id);
     }
 
     @Test
     public void updateArea() throws Exception {
-        Area area=new Area();
+        Area area = new Area();
         area.setAreaId(1);
         area.setAreaName("吸睛");
         area.setPriority(3);
@@ -56,4 +60,42 @@ public class AreaDaoTest {
         areaDao.deleteArea(1);
     }
 
+    @Test
+    public void testSQl() {
+        new Thread(() -> testRead()).start();
+        new Thread(() -> testInsert()).start();
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class}, isolation = Isolation.READ_COMMITTED)
+    public void testRead() {
+
+        int receiveCount = areaDao.getCount();
+        System.out.println("---testRead 1-->" + receiveCount);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        receiveCount = areaDao.getCount();
+        System.out.println("---testRead 2-->" + receiveCount);
+
+    }
+
+    public void testInsert() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Area area = new Area();
+        area.setAreaName("徐州");
+        area.setPriority(3);
+        int id = areaDao.insertArea(area);
+        System.out.println("---testInsert-->" + id);
+    }
 }

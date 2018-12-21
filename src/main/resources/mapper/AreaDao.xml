@@ -18,6 +18,9 @@
         FROM tb_area
         WHERE area_id=#{id}
     </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM tb_area
+    </select>
     <insert id="insertArea" useGeneratedKeys="true" keyColumn="area_id" keyProperty="areaId"
             parameterType="com.uuabb.miao.entity.Area">
       INSERT INTO tb_area

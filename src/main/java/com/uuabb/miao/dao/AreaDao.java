@@ -24,4 +24,5 @@ public interface AreaDao {
     //删除区域信息
     int deleteArea(int areaId);
 
+    int getCount();
 }
