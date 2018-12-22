@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -98,4 +99,34 @@ public class AreaDaoTest {
         int id = areaDao.insertArea(area);
         System.out.println("---testInsert-->" + id);
     }
+
+
+    @Test
+    public void testModify() {
+        new Thread(() -> updateTest1()).start();
+        new Thread(() -> updateTest2()).start();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTest1() {
+
+        Area area = areaDao.queryAreaById(10);
+        System.out.println("---1-->" + area);
+        area.setCreateTime(new Date());
+        area.setAreaName("北京");
+        areaDao.updateArea(area);
+    }
+
+    public void updateTest2() {
+        Area area = areaDao.queryAreaById(10);
+        System.out.println("---2-->" + area);
+        area.setCreateTime(new Date());
+        area.setAreaName("上海2");
+        areaDao.updateArea(area);
+    }
+
 }

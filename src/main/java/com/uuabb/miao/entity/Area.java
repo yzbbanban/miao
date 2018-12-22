@@ -6,17 +6,36 @@ import java.util.Date;
 /**
  * Created by brander on 2018/2/28
  */
-public class Area implements Serializable{
-    //主键 ID
+public class Area implements Serializable {
+    /**
+     * 主键 ID
+     */
     private Integer areaId;
-    //名称
+    /**
+     * 名称
+     */
     private String areaName;
-    //权重，越大越在前显示
+    /**
+     * 权重，越大越在前显示
+     */
     private Integer priority;
-    //创建时间
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    //更新时间
+    /**
+     * 更新时间
+     */
     private Date lastEditTime;
+    /**
+     * 版本
+     */
+    private Long version;
+
+    /**
+     * 并发测试select
+     */
+    private Long testSelect;
 
     public Integer getAreaId() {
         return areaId;
@@ -58,6 +77,22 @@ public class Area implements Serializable{
         this.lastEditTime = lastEditTime;
     }
 
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Long getTestSelect() {
+        return testSelect;
+    }
+
+    public void setTestSelect(Long testSelect) {
+        this.testSelect = testSelect;
+    }
+
     @Override
     public String toString() {
         return "Area{" +
@@ -66,6 +101,8 @@ public class Area implements Serializable{
                 ", priority=" + priority +
                 ", createTime=" + createTime +
                 ", lastEditTime=" + lastEditTime +
+                ", version=" + version +
+                ", testSelect=" + testSelect +
                 '}';
     }
 }

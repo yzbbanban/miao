@@ -20,18 +20,18 @@ public class AreaServiceImpl implements IAreaService {
     private AreaDao areaDao;
 
     @Override
-    @CacheEvict(value="area",key="getAreaList()",allEntries=true)
+    @CacheEvict(value = "area", key = "getAreaList()", allEntries = true)
     public List<Area> getAreaList() {
         return areaDao.queryArea();
     }
 
     @Override
-    @CacheEvict(value="area",key="getAreaById()",allEntries=true)
+    @CacheEvict(value = "area", key = "getAreaById()", allEntries = true)
     public Area getAreaById(int areaId) {
         return areaDao.queryAreaById(areaId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean addAreaById(Area area) {
         if (!StringUtils.isEmpty(area.getAreaName())) {
@@ -50,7 +50,7 @@ public class AreaServiceImpl implements IAreaService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean modifyArea(Area area) {
         if (area.getAreaId() != null && area.getAreaId() > 0) {
@@ -70,7 +70,7 @@ public class AreaServiceImpl implements IAreaService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean deleteAreaById(int areaId) {
         if (areaId > 0) {
@@ -89,4 +89,8 @@ public class AreaServiceImpl implements IAreaService {
             throw new RuntimeException("区域id不能为空");
         }
     }
+
+
+
+
 }
