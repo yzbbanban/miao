@@ -1,7 +1,7 @@
 package com.uuabb.miao.dao;
 
 import com.uuabb.miao.entity.Area;
-import org.junit.Ignore;
+import com.uuabb.miao.service.IAreaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by brander on 2018/3/1
@@ -25,6 +22,9 @@ import static org.junit.Assert.*;
 public class AreaDaoTest {
     @Autowired
     private AreaDao areaDao;
+
+    @Autowired
+    private IAreaService areaService;
 
     @Test
     public void queryArea() throws Exception {
@@ -127,6 +127,51 @@ public class AreaDaoTest {
         area.setCreateTime(new Date());
         area.setAreaName("上海2");
         areaDao.updateArea(area);
+    }
+
+
+    @Test
+    public void updateSelect() {
+        new Thread(() -> {
+            areaService.updateSelect(13, "test1");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test2");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test3");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test4");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test5");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test6");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test7");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test8");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test9");
+        }).start();
+        new Thread(() -> {
+            areaService.updateSelect(13, "test10");
+        }).start();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test233() {
+        System.out.println("=======> "+areaDao.queryAreaById(10));
     }
 
 }

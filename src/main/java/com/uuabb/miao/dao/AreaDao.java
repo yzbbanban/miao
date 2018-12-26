@@ -48,4 +48,11 @@ public interface AreaDao {
      * @return
      */
     int getCount();
+
+    /**
+     *
+     * @param area
+     * @return
+     */
+    int updateSelect(Area area);
 }

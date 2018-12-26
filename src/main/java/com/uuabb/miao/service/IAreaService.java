@@ -18,7 +18,6 @@ public interface IAreaService {
 
     boolean deleteAreaById(int areaId);
 
-
-    boolean update(int areaId);
+    boolean updateSelect(int areaId, String name);
 
 }
