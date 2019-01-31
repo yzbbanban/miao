@@ -19,6 +19,7 @@ import java.util.concurrent.Callable;
 @RequestMapping("/superAdmin")
 public class AreaController {
 
+
     private Logger log = LoggerFactory.getLogger(AreaController.class);
     @Autowired
     private IAreaService iAreaService;
@@ -28,6 +29,15 @@ public class AreaController {
         List<Area> areas = iAreaService.getAreaList();
         Map<String, Object> map = new HashMap<>();
         map.put("areaList", areas);
+        return map;
+    }
+
+    @RequestMapping(value = "tm", method = RequestMethod.GET)
+    public Map<String, Object> tm() {
+        Area area = iAreaService.testM();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("areaList", area);
         return map;
     }
 

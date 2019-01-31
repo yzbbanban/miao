@@ -20,4 +20,8 @@ public interface IAreaService {
 
     boolean updateSelect(int areaId, String name);
 
+    /**
+     * 测试 4.0 mongodb 事务
+     */
+    Area testM();
 }

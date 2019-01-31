@@ -1,10 +1,11 @@
 package com.uuabb.miao.service.impl;
 
+import com.uuabb.miao.dao.AreaDao;
 import com.uuabb.miao.dao.UserDao;
+import com.uuabb.miao.entity.Area;
 import com.uuabb.miao.entity.User;
 import com.uuabb.miao.service.IAreaService;
-import com.uuabb.miao.dao.AreaDao;
-import com.uuabb.miao.entity.Area;
+import com.uuabb.miao.utils.MongoUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -13,9 +14,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by brander on 2018/3/1
@@ -30,6 +31,9 @@ public class AreaServiceImpl implements IAreaService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private MongoUtils mongoUtils;
 
     @Override
     @CacheEvict(value = "area", key = "getAreaList()", allEntries = true)
@@ -109,7 +113,7 @@ public class AreaServiceImpl implements IAreaService {
      * @return true 成功
      */
     @Override
-    @Transactional(rollbackFor = Exception.class,isolation = Isolation.REPEATABLE_READ)
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ)
     public boolean updateSelect(int areaId, String name) {
         try {
             String message = "------> " + name + ": ";
@@ -155,6 +159,29 @@ public class AreaServiceImpl implements IAreaService {
             logger.error(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * 测试 4.0 mongodb 事务
+     */
+    @Override
+    public Area testM() {
+        Area area = new Area();
+        area.setAreaName("xxx");
+        area.setPriority(123);
+        area.setCreateTime(new Date());
+        area.setLastEditTime(new Date());
+        area.setVersion(123L);
+        area.setTestSelect(123L);
+
+        try {
+            mongoUtils.saveObject(area,"area");
+            return area;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 }
